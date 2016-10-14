@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Contact Manager</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/stylesheets/contact_manager.css">
+    <script src="assets/javascripts/handlebars-v4.0.5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/javascripts/contact_manager.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Manager</h1>
+      <p>Using jQuery, LocalStorage, and Handlebars</p>
+    </header>
+
+    <main>
+      <div id="menu">
+        <div>
+          <button class="add">Add Contact</button>
+        </div><!--
+     --><div>
+          <input id="search" type="text" placeholder="Search"></input>
+          <select>
+            <option value="name" selected>by name</option>
+            <option value="tags">by tag</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="contacts">
+      </div>
+
+      <div id="no_contacts">
+        <h3>There are no contacts.</h3>
+        <button class="add">Add Contact</button>
+      </div>
+
+      <div id="no_results">
+        <h3>There are no contacts containing <strong>x</strong>.</h3>
+      </div>
+    </main>
+
+    <footer>
+      <p>Developed by Billy Arnold, a student at <a href="">Launch School</a></p>
+    </footer>
+
+    <div id='form' data-editing=''>
+      <h2>Create Contact</h2>
+      <form action="" method="post">
+        <fieldset>
+          <div>
+            <label for="name">Full name:</label><!--
+        --><input type="text" name="name" id="name"></input>
+           <small>Please enter a valid name.</small>
+          </div>
+          <div>
+            <label for="email">Email address:</label><!--
+         --><input type="email" name="email" id="email"></input>
+            <small>Please enter a valid email address.</small>
+          </div>
+          <div>
+            <label for="telephone">Telephone number:</label><!--
+          --><input type="text" name="telephone" id="telephone"></input>
+             <small>Please enter a valid telephone number.</small>
+          </div>
+          <div>
+            <label for="tags">Add tags:</label><!--
+          --><input type="text" name="tags" id="tags"></input>
+             <div id="tagslist"><p>Tags to be added</p></div>
+          </div>
+          <div id="buttons">
+            <div><input type="submit"></input></div><!--
+         --><div><button>Cancel</button></div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <script id='tag_template' type='text/x-handlebars'>
+      <span class="tag">{{.}}</span>
+    </script>
+
+    <script id='all_tags_template' type='text/x-handlebars'>
+      {{#each tags}}
+      {{> tag_template}}
+      {{/each}}
+    </script>
+
+    <script id="contact_template" type="text/x-handlebars">
+      <div data-id="{{id}}">
+        <h3>{{name}}</h3>
+        <dl>
+          <dt>Phone Number:</dt>
+          <dd>{{telephone}}</dd>
+          <dt>Email:</dt>
+          <dd>{{email}}</dd>
+          <dt>Tags:</dt>
+          <dd>
+            {{#if tags}}
+            {{> all_tags_template}}
+            {{else}}
+            Not tagged
+            {{/if}}
+          </dd>
+        </dl>
+        <button id="edit">Edit</button>
+        <button id="delete">Delete</button>
+      </div>
+    </script>
+
+    <script id="all_contacts_template" type="text/x-handlebars">
+      {{#each contacts}}
+      {{> contact_template}}
+      {{/each}}
+    </script>
+  </body>
+</html>
